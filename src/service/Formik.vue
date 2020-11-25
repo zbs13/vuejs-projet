@@ -12,7 +12,9 @@
       initialValues: {
         type: Object
       },
-      onValidate: {type: Function}
+      onValidate: {
+        type: Function
+      }
     },
     data() {
       return {...this.$props.initialValues}
@@ -55,8 +57,8 @@
         type: String
       },
       checked: {
-        default: false,
-        type: Boolean
+        default: "false",
+        type: String
       },
       required: {
         default: "false",
@@ -69,7 +71,7 @@
           <input type={this.$props.type} name={this.$props.name} placeholder={this.$props.placeholder} required={this.$props.required}/>
         :
           this.$props.type === "checkbox" ?
-            <input type={this.$props.type} name={this.$props.name} checked={this.$props.checked} />
+            <input type={this.$props.type} name={this.$props.name} checked={this.$props.checked == "true" ? true : false} />
           :
             <select type={this.$props.type} name={this.$props.name} >
               {this.$slots.default}

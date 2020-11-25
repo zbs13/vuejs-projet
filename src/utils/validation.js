@@ -1,4 +1,4 @@
-//import { mapActions } from "vuex";
+import store from "../store/app";
 let yup = require('yup');
 
 const validationSchema = yup.object().shape({
@@ -7,14 +7,11 @@ const validationSchema = yup.object().shape({
                 .min(7, "Le mot de passe doit contenir au moins 7 caractères")
                 .matches(/[A-Z]/, "Le mot de passe doit contenir au moins une majuscule")
                 .matches(/[a-z]/, "Le mot de passe doit contenir au moins une minuscule")
-                .matches(/[0-9]/, "Le mot de passe doit contenir au moins un numéro")
+                .matches(/[0-9]/, "Le mot de passe doit contenir au moins un numéro") 
 });
 
-// let actions = {
-//     ...mapActions(["addPopup"])
-// };
-
 // check validity
+
 export default async function validation(values){
     let errors = [];
     await validationSchema.validate(values)
@@ -23,7 +20,10 @@ export default async function validation(values){
     });
 
     if(errors.length > 0){
-        //actions.addPopup(errors);
+        store.dispatch("addPopup", {
+            type: "error",
+            message: errors[0]
+        });
         return false;
     }
 

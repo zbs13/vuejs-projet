@@ -17,6 +17,7 @@
 <script>
     import Formik, { Field } from '../service/Formik';
     import validation from '../utils/validation';
+    import store from "../store/app";
 
     export default {
         name: 'Login',
@@ -29,6 +30,10 @@
                 console.log(mail);
                 console.log(password);
                 console.log("submitted");
+                store.dispatch("addPopup", {
+                    type: "success",
+                    message: "Vous êtes loggé"
+                })
             },
             onValidate : async function(values){
                return await validation(values);

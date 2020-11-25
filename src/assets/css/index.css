@@ -1,4 +1,39 @@
+body {
+  width: 100%;
+  margin: 0 auto;
+}
+
 .header {
   background-color: red;
+}
+
+.popup-block {
+  position: fixed;
+  z-index: 10000;
+  bottom: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: calc(100% - 20px);
+}
+
+.popup-block .popup {
+  text-align: center;
+  border-radius: 5px;
+  border: 2px dotted;
+  padding: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.popup-block .popup-error {
+  border-color: #ec8686;
+  background-color: #631010;
+  color: #ec8686;
+}
+
+.popup-block .popup-success {
+  border-color: #e8f1e5;
+  background-color: #5B8C4B;
+  color: #e8f1e5;
 }
 /*# sourceMappingURL=index.css.map */

@@ -5,13 +5,19 @@
     </header>
     <main>
       <router-view />
+      <Popup />
     </main>
   </div>
 </template>
 
 <script>
+import Popup from "./components/Popup";
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Popup
+  }
 }
 </script>
 

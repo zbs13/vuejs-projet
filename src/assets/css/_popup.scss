@@ -1,0 +1,29 @@
+.popup-block{
+    position: fixed;
+    z-index: 10000;
+    bottom: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: calc(100% - 20px);
+
+    & .popup{
+        text-align: center;
+        border-radius: 5px;
+        border: 2px dotted;
+        padding: 20px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    & .popup-error{
+        border-color: $errorSecondaryColor;
+        background-color: $errorColor;
+        color: $errorSecondaryColor;
+    }
+
+    & .popup-success{
+        border-color: $successSecondaryColor;
+        background-color: $successColor;
+        color: $successSecondaryColor;
+    }
+}

@@ -1,9 +1,26 @@
 <template>
-    <div>ConnectedHeader</div>
+    <div class="flex space-between align-center">
+        <div class="header-title">
+          Application
+        </div>
+        <div class="flex align-center">
+          <div class="p-10">
+            <SwitchApi />
+          </div>
+          <div>
+
+          </div>
+        </div>
+    </div>
 </template>
 
 <script>
-export default {
-  name: 'ConnectedHeader'
-}
+  import SwitchApi from './SwitchApi';
+
+  export default {
+    name: 'ConnectedHeader',
+    components: {
+      SwitchApi
+    }
+  }
 </script>

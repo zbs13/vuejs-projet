@@ -6,7 +6,12 @@ export default [
         path: "/login",
         components: {
             default: Login,
-            header: DisconnectedHeader
+            header: DisconnectedHeader,
+        },
+        props: {
+            header: {
+                isLogin: true
+            }
         }
     }
 ]

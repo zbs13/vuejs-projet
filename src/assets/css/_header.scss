@@ -1,3 +1,12 @@
-.header{
-    background-color: red;
+header {
+    width: 100%;
+    background-color: #FFF;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: 1px 1px 20px $veryLightGrey;
+}
+
+.header-content{
+    margin: auto;
+    width: $widthApp;
 }

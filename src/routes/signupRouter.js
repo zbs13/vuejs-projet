@@ -6,7 +6,12 @@ export default [
         path: "/signup",
         components: {
             default: Signup,
-            header: DisconnectedHeader
+            header: DisconnectedHeader,
+        },
+        props: {
+            header: {
+                isLogin: false
+            }
         }
     }
 ]

@@ -1,12 +1,14 @@
 <template>
   <div id="app">
-    <header class="header">
-      <router-view name="header" />
+    <header>
+      <div class="header-content">
+        <router-view name="header" />
+      </div>
     </header>
     <main>
       <router-view />
-      <Popup />
     </main>
+    <Popup />
   </div>
 </template>
 

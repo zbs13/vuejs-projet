@@ -1,0 +1,21 @@
+.form{
+    & .field{
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 2px solid $veryLightGrey;
+        border-radius: 5px;
+    }
+
+    & .submit{
+        padding: 15px;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        background-color: $veryLightGrey;
+    }
+}
+
+.form-login{
+    margin: auto;
+    width: 600px;
+}

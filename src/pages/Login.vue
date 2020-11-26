@@ -17,6 +17,7 @@
 </template>
 
 <script>
+
     import Formik, { Field } from '../service/Formik';
     import PageTitle from '../components/PageTitle';
     import validation from '../utils/validation';
@@ -44,4 +45,5 @@
             }
         }
     }
+    
 </script>

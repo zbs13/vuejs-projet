@@ -1,6 +1,6 @@
 <template>
     <div>
-        <PageTitle title="Connexion"/>
+        <PageTitle title="TEEEEST"/>
         <Formik
             :initialValues="{mail: '', password: ''}"
             :onValidate="onValidate"

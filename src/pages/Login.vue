@@ -34,6 +34,7 @@
         methods: {
             onSubmit : async function({mail, password}){
                 const res = await connect(mail, password);
+                console.log(res);
             },
             onValidate : async function(values){
                return await validation(values);

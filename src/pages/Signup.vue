@@ -42,6 +42,7 @@ export default {
   methods: {
             onSubmit : async function({name, firstname, mail, password}){
                 const res = await signup(name, firstname, mail, password);
+                console.log(res);
             },
             onValidate : async function(values){
                return await validation(values);

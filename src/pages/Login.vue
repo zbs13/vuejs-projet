@@ -22,6 +22,7 @@
     import PageTitle from '../components/PageTitle';
     import validation from '../utils/validation';
     import store from "../store/app";
+    import {connect} from '../api/auth';
 
     export default {
         name: 'Login',
@@ -31,14 +32,8 @@
             PageTitle
         },
         methods: {
-            onSubmit : function({mail, password}){
-                console.log(mail);
-                console.log(password);
-                console.log("submitted");
-                store.dispatch("addPopup", {
-                    type: "success",
-                    message: "Vous êtes loggé"
-                })
+            onSubmit : async function({mail, password}){
+                const res = await connect(mail, password);
             },
             onValidate : async function(values){
                return await validation(values);

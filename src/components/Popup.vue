@@ -7,6 +7,9 @@
       <div v-else-if="popup.type == 'success'" class="popup popup-success">
         {{ popup.message }}
       </div>
+      <div v-else-if="popup.type == 'wait'" class="popup popup-success">
+        {{ popup.message }}
+      </div>
     </div>
   </div>
 </template>

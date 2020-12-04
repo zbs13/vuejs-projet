@@ -5,7 +5,7 @@ export function post(url, data = null, waitMessage = null){
     if(data !== null){
         for(let key in data){
             datas.append(key, data[key]);
-        };
+        }
     }
     if(waitMessage !== null){
         store.dispatch("addPopup", {
@@ -20,7 +20,7 @@ export function post(url, data = null, waitMessage = null){
     }).then(response => response.json())
     .then(datas => {
         return datas;
-    }).catch(function(data){
+    }).catch(function(){
         store.dispatch("addPopup", {
             type: "error",
             message: "Oups, une erreur est survenue"
@@ -46,19 +46,22 @@ function Get_Patch_Delete_Requests(url, datas, waitMessage, method){
         parameters = datas.join("/");
     }
     if(waitMessage !== null){
-        Status.message("wait", waitMessage);
+        store.dispatch("addPopup", {
+            type: "wait",
+            message: waitMessage
+        });
     }
     parameters = parameters !== "" ? `/${parameters}`: "";
     return fetch(url + parameters,
     {
-    method: method,
+        method: method,
     }).then(response => response.json())
     .then(datas => {
-        //Status.removeMessage();
         return datas;
-    }).catch(function(data){
-        // Status.removeMessage();
-        // Status.message("error", "Oups, une erreur est survenue");
-        // return {status: "error"};
+    }).catch(function(){
+        store.dispatch("addPopup", {
+            type: "error",
+            message: "Oups, une erreur est survenue"
+        });
     });
 }

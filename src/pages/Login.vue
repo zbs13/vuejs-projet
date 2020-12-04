@@ -21,7 +21,6 @@
     import Formik, { Field } from '../service/Formik';
     import PageTitle from '../components/PageTitle';
     import validation from '../utils/validation';
-    import store from "../store/app";
     import {connect} from '../api/auth';
 
     export default {

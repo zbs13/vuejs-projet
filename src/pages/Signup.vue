@@ -30,6 +30,7 @@
     import Formik, { Field } from '../service/Formik';
     import PageTitle from '../components/PageTitle';
     import validation from '../utils/validation';
+    import {signup} from '../api/auth';
 
 export default {
   name: 'Signup',
@@ -39,13 +40,8 @@ export default {
             PageTitle
         },
   methods: {
-            onSubmit : function({name, firstname, mail, password, confirmPwd}){
-                console.log("submitted");
-                console.log(name);
-                console.log(firstname);
-                console.log(mail);
-                console.log(password);
-                console.log(confirmPwd);
+            onSubmit : async function({name, firstname, mail, password}){
+                const res = await signup(name, firstname, mail, password);
             },
             onValidate : async function(values){
                return await validation(values);

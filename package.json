@@ -16,6 +16,8 @@
     "connect-history-api-fallback": "^1.6.0",
     "core-js": "^3.6.5",
     "express": "^4.17.1",
+    "graphql": "^15.4.0",
+    "graphql-request": "^3.3.0",
     "semantic-ui-vue": "^0.11.0",
     "vue": "^2.6.11",
     "vue-router": "^3.4.9",
@@ -43,7 +45,9 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "no-unused-vars": 1
+    }
   },
   "browserslist": [
     "> 1%",

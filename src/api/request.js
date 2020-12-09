@@ -1,4 +1,5 @@
 import store from "../store/app";
+import { GraphQLClient } from 'graphql-request';
 
 export function post(url, data = null, waitMessage = null){
     let datas = new FormData();
@@ -64,4 +65,16 @@ function Get_Patch_Delete_Requests(url, datas, waitMessage, method){
             message: "Oups, une erreur est survenue"
         });
     });
+}
+
+export async function reqGraphQL(req, vars = null, waitMessage = null){
+    const url = process.env.API_GRAPHQL_URL;
+
+    const graphQLClient = new GraphQLClient("https://graphql-projet.herokuapp.com/", {
+      headers: {
+        authorization: 'Bearer MY_TOKEN',
+      },
+    })
+    
+    return await graphQLClient.request(req, vars);
 }

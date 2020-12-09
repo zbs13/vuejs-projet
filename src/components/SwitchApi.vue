@@ -12,7 +12,7 @@
       name: 'SwitchApi',
       methods: {
         onClick: function(e){
-          console.log(e.target.name);
+          window.localStorage.setItem("apiSelected", e.target.name);
         }
       }
     };

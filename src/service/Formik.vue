@@ -40,40 +40,24 @@
 
   export const Field = {
     props: {
-      type: {
-        default: "text",
-        type: String
-      },
       name: {
-        default: "",
-        type: String
-      },
-      placeholder: {
         default: "",
         type: String
       },
       value: {
         default: "",
         type: String
-      },
-      checked: {
-        default: "false",
-        type: String
-      },
-      required: {
-        default: "false",
-        type: String
       }
     },
     render() {
       return (
         this.$props.type !== "checkbox" && this.$props.type !== "select" ?
-          <input type={this.$props.type} name={this.$props.name} placeholder={this.$props.placeholder} required={this.$props.required}/>
+          <input name={this.$props.name} value={this.$props.value} {...this.$attrs} />
         :
           this.$props.type === "checkbox" ?
-            <input type={this.$props.type} name={this.$props.name} checked={this.$props.checked == "true" ? true : false} />
+            <input name={this.$props.name} {...this.$attrs} />
           :
-            <select type={this.$props.type} name={this.$props.name} >
+            <select name={this.$props.name} {...this.$attrs} >
               {this.$slots.default}
             </select>
       );

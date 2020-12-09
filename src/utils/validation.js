@@ -9,12 +9,11 @@ const validationSchema = yup.object().shape({
                 .matches(/[a-z]/, "Le mot de passe doit contenir au moins une minuscule")
                 .matches(/[0-9]/, "Le mot de passe doit contenir au moins un numéro"),
     
-  name:yup.string()
+  name: yup.string()
                 .min(3, "Le nom doit contenir au moins 3 charactères"),
 
   confirmPwd: yup.string()
                 .oneOf([yup.ref('password'), null], "Le mot de passe n'est pas le même")
-                .required('Required')
 });
 
 // check validity

@@ -1,7 +1,7 @@
 import store from "../store/app";
 import { GraphQLClient } from 'graphql-request';
 
-export function post(url, data = null, waitMessage = null){
+export function post(endpoint, data = null, waitMessage = null){
     let datas = new FormData();
     if(data !== null){
         for(let key in data){
@@ -14,7 +14,7 @@ export function post(url, data = null, waitMessage = null){
             message: waitMessage
         });
     }
-    return fetch(url,
+    return fetch("https://api-platform-esgi.herokuapp.com" + endpoint,
     {
         method: "POST",
         body: datas
@@ -29,19 +29,19 @@ export function post(url, data = null, waitMessage = null){
     });
 }
 
-export function get(url, datas = null, waitMessage = null){
-    return Get_Patch_Delete_Requests(url, datas, waitMessage, "GET");
+export function get(endpoint, datas = null, waitMessage = null){
+    return Get_Patch_Delete_Requests(endpoint, datas, waitMessage, "GET");
 }
 
-export function patch(url, datas = null, waitMessage = null){
-    return Get_Patch_Delete_Requests(url, datas, waitMessage, "PATCH");
+export function patch(endpoint, datas = null, waitMessage = null){
+    return Get_Patch_Delete_Requests(endpoint, datas, waitMessage, "PATCH");
 }
 
-export function deleteMethod(url, datas = null, waitMessage = null){
-    return Get_Patch_Delete_Requests(url, datas, waitMessage, "DELETE");
+export function deleteMethod(endpoint, datas = null, waitMessage = null){
+    return Get_Patch_Delete_Requests(endpoint, datas, waitMessage, "DELETE");
 }
 
-function Get_Patch_Delete_Requests(url, datas, waitMessage, method){
+function Get_Patch_Delete_Requests(endpoint, datas, waitMessage, method){
     let parameters = "";
     if(datas !== null){
         parameters = datas.join("/");
@@ -53,7 +53,7 @@ function Get_Patch_Delete_Requests(url, datas, waitMessage, method){
         });
     }
     parameters = parameters !== "" ? `/${parameters}`: "";
-    return fetch(url + parameters,
+    return fetch("https://api-platform-esgi.herokuapp.com" + endpoint + parameters,
     {
         method: method,
     }).then(response => response.json())

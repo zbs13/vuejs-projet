@@ -1,18 +1,18 @@
 import {post} from '../request';
 
 export const auth = {
-    connect: async function({mail, pwd}) {
-        return await post('monUrlEnVarGlobal', {
-            email:mail, 
-            password:pwd
+    connect: async function({mail, password}) {
+        return await post('/login', {
+            email: mail, 
+            password: password
         }, 'en connexion');
     },
     signup: async function({name, firstname, mail, password}) {
-        return await post('monUrlEnVarGlobal', {
-            name:name,
-            firstname:firstname,
-            email:mail, 
-            password:password
+        return await post('/users/create', {
+            lastname: name,
+            firstname: firstname,
+            email: mail, 
+            password: password
         }, 'inscription');
     }
 }

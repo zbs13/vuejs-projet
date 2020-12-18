@@ -1,7 +1,7 @@
 <template>
-  <form class="form" @submit.prevent="onSubmit">
+  <div>
     <slot />
-  </form>
+  </div>
 </template>
 
 <script>
@@ -20,16 +20,31 @@
       return {...this.$props.initialValues}
     },
     methods: {
-      async onSubmit(e) {
-        for(let el of e.target){
-            if(el.name 
-            && el.name !== "checkbox" 
-            && el.value !== ""){
+      handleSubmit(e) {
+        let els;
+        if(!(e instanceof MouseEvent)){
+          e.preventDefault();
+          els = e.target;
+        }else{
+          els = this.$children;
+        }
+
+        for(let el of els){
+            if(e instanceof MouseEvent){
+              el = el.$el;
+            }
+            if((el.name && el.type
+            && el.type !== "checkbox")
+            || !el.type){
               this.$data[el.name] = el.value;
             }else{
               this.$data[el.name] = el.checked;
             }
         }
+
+        this.onSubmit();
+      },
+      async onSubmit() {
         let isValidated = await this.onValidate(this.$data);
         if(isValidated){
           this.$emit('onSubmit', this.$data);
@@ -60,6 +75,37 @@
             <select name={this.$props.name} {...this.$attrs} >
               {this.$slots.default}
             </select>
+      );
+    },
+  };
+
+  export const Button = {
+    props: {
+      handleSubmit: {
+        default: false,
+        type: Boolean
+      },
+      value: {
+        default: "",
+        type: String
+      }
+    },
+    render() {
+      return (
+        this.$props.handleSubmit ?
+          <input type="button" value={this.$props.value} {...this.$attrs} on-click={this.$parent.handleSubmit} />
+        :
+          <input type="button" value={this.$props.value} {...this.$attrs} />
+      );
+    },
+  };
+
+  export const Form = {
+    render() {
+      return (
+        <form on-submit={this.$parent.handleSubmit} >
+          {this.$slots.default}
+        </form>
       );
     },
   };

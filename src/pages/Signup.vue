@@ -13,19 +13,21 @@
       @onSubmit="onSubmit"
       class="form form-login flex column"
     >
-      <Field class="field" type="text" name="name" placeholder="Nom" required="required"/>
-      <Field class="field" type="text" name="firstname" placeholder="Prénom" required="required"/>
-      <Field class="field" type="email" name="mail" placeholder="Email" required="required"/>
-      <Field class="field" type="password" name="password" placeholder="Mot de passe" required="required"/>
-      <Field class="field" type="password" name="confirmPwd" placeholder="Confirmation du mot de passe" required="required"/>
+      <Form class="form form-login flex column">
+        <Field class="field" type="text" name="name" placeholder="Nom" required="required"/>
+        <Field class="field" type="text" name="firstname" placeholder="Prénom" required="required"/>
+        <Field class="field" type="email" name="mail" placeholder="Email" required="required"/>
+        <Field class="field" type="password" name="password" placeholder="Mot de passe" required="required"/>
+        <Field class="field" type="password" name="confirmPwd" placeholder="Confirmation du mot de passe" required="required"/>
 
-      <input class="cta submit" type="submit" value="S'inscrire" />
+        <Button class="cta submit" type="submit" value="S'inscrire" />
+      </Form>
     </Formik>
   </div>
 </template>
 
 <script>
-    import Formik, { Field } from '../service/Formik';
+    import Formik, { Field, Form, Button } from '../service/Formik';
     import PageTitle from '../components/PageTitle';
     import validation from '../utils/validation';
     import dispatchApi from '../api/dispatchApi';
@@ -35,6 +37,8 @@ export default {
   components: {
             Formik,
             Field,
+            Form,
+            Button,
             PageTitle
         },
   methods: {

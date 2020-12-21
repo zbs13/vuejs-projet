@@ -8,7 +8,7 @@
             <SwitchApi />
           </div>
           <div>
-
+            <Cta class="cta-logout" value="Déconnexion" @click="disconnection" />
           </div>
         </div>
     </div>
@@ -16,11 +16,19 @@
 
 <script>
   import SwitchApi from './SwitchApi';
+  import Cta from './Cta';
 
   export default {
     name: 'ConnectedHeader',
     components: {
-      SwitchApi
+      SwitchApi,
+      Cta
+    },
+    methods: {
+      disconnection: function() {
+        window.localStorage.removeItem("auth_token");
+        window.location.reload();
+      }
     }
   }
 </script>

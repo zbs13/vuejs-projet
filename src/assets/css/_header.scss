@@ -10,3 +10,12 @@ header {
     margin: auto;
     width: $widthApp;
 }
+
+.cta-logout{
+    color: $mainRed !important;
+
+    &:hover{
+        color: #FFF !important;
+        background-color: $mainRed !important;
+    }
+}

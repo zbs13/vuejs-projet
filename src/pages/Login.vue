@@ -61,6 +61,9 @@ TEST SANS BALISE <form>
             onValidate : async function(values){
                return await validation(values);
             }
+        },
+        created(){
+            document.title = "Connexion";
         }
     }
     

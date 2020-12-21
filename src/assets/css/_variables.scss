@@ -1,8 +1,11 @@
 $widthApp: 1200px;
 
+$mainRed: #A91212;
 $errorColor: #631010;
 $successColor: #5B8C4B;
 $errorSecondaryColor: lighten($errorColor, 50%);
 $successSecondaryColor: lighten($successColor, 50%);
 $veryLightGrey: #DADADA;
 $mainGrey: #343434;
+
+$mainTransitionTime: 0.2s;

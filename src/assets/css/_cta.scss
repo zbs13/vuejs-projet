@@ -1,0 +1,12 @@
+.cta{
+    padding: 8px;
+    border: 1px solid $mainGrey;
+    border-radius: 5px;
+    color: $mainGrey;
+    transition: all $mainTransitionTime;
+    background-color: #FFF;
+
+    &:hover{
+        background-color: $veryLightGrey;
+    }
+}

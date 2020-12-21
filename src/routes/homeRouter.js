@@ -7,6 +7,9 @@ export default [
         components: {
             default: Home,
             header: ConnectedHeader
+        },
+        props: {
+            needLogged: true
         }
     }
 ]

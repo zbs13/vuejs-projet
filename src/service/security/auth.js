@@ -11,15 +11,21 @@ const Auth = {
         await Auth.checkConnectionStatus();
         return Auth.isConnected();
     },
-    checkConnectionStatus: async() => {
+    checkConnectionStatus: async(callback = null) => {
         if(window.localStorage.getItem("auth_token")){
             let isUserConnected = await dispatchApi("auth", "checkIfUserConnected"); // variables a changer (isUserConnected) selon api
             isUserConnected = true; // a enlever
             window.localStorage.setItem("isLogged", isUserConnected);
+            if(callback !== null){
+                callback();
+            }
             return;
         }
 
         window.localStorage.setItem("isLogged", false);
+        if(callback !== null){
+            callback();
+        }
     }
 }
 

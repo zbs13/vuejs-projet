@@ -11,7 +11,8 @@ export default [
         props: {
             header: {
                 isLogin: true
-            }
+            },
+            needLogged: false
         }
     }
 ]

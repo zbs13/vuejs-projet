@@ -21,24 +21,41 @@
 import Popup from "./components/Popup";
 import Auth from './service/security/auth';
 import MainLoader from './components/MainLoader';
+import { manageAccess } from './routes';
 
 export default {
   name: 'App',
   data(){
     return {
-      isLoading: true,
-      isLogged: false
+      isLoading: true
     }
   },
   components: {
     Popup,
     MainLoader
   },
+  // executer au chargement de la page
   async mounted() {
-    await Auth.checkConnectionStatus();
-    this.$data.isLoading = false;
-    this.$data.isLogged = window.localStorage.getItem("isLogged");
-  }
+    let needLogged = this.$route.matched[0].props.needLogged;
+    if(typeof needLogged === "boolean"){
+      await Auth.checkConnectionStatus();
+      this.$data.isLoading = false;
+      manageAccess(needLogged);
+    }else{
+      this.$data.isLoading = false;
+    }
+  },
+  // executer si changement de route
+  watch: {
+    '$route'(to, from){
+      let needLogged = to.matched[0].props.needLogged;
+      if(typeof needLogged === "boolean"){
+        Auth.checkConnectionStatus(function(){
+          manageAccess(needLogged);
+        });
+      }
+    }
+  },
 }
 </script>
 

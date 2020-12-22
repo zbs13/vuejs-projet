@@ -1,5 +1,5 @@
 import Signup from "../pages/Signup";
-import DisconnectedHeader from "../components/DisconnectedHeader";
+import DisconnectedHeader from "../components/Header/DisconnectedHeader";
 
 export default [
     {

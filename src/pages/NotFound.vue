@@ -11,6 +11,9 @@
 
 <script>
 export default {
-  name: 'NotFound'
+  name: 'NotFound',
+  created(){
+      document.title = "Page non trouvée";
+  }
 }
 </script>

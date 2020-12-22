@@ -1,6 +1,6 @@
 <template>
   <Header>
-    <router-link to="/" class="link header-link">Accueil</router-link>
+    <router-link to="/groups" class="link header-link">Accueil</router-link>
   </Header>
 </template>
 

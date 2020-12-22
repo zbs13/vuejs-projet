@@ -38,7 +38,7 @@ export function manageAccess(needLogged){
   }
 
   if(!needLogged && isLogged){
-    router.push("/")
+    router.push("/groups")
     return;
   }
 }

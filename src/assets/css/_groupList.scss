@@ -1,0 +1,42 @@
+.group-block{
+    width: 300px;
+    max-width: 100%;
+    background-color: #FFF;
+    overflow: auto;
+    position: relative;
+
+    .group-list{
+        margin-bottom: 70px;
+
+        & .group-card{
+            padding: 10px;
+            border-bottom: 1px solid $mainGrey;
+            border-radius: 5px;
+            overflow: auto;
+            color: $mainBlue;
+
+            & .group-name{
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+        }
+
+        & .no-group{
+            text-align: center;
+        }
+    }
+
+    & .cta-add-group{
+        position: fixed;
+        bottom: 20px;
+        text-align: center;
+        width: 300px;
+
+        & .add-group-link{
+            padding: 20px;
+            background-color: $successColor;
+            border-radius: 5px;
+            color: #FFF;
+        }
+    }
+}

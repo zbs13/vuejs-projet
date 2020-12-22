@@ -1,5 +1,5 @@
 import Login from "../pages/Login";
-import DisconnectedHeader from "../components/DisconnectedHeader";
+import DisconnectedHeader from "../components/Header/DisconnectedHeader";
 
 export default [
     {

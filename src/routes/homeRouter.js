@@ -1,5 +1,5 @@
 import Home from "../pages/Home";
-import ConnectedHeader from "../components/ConnectedHeader";
+import ConnectedHeader from "../components/Header/ConnectedHeader";
 
 export default [
     {

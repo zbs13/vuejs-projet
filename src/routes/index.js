@@ -4,6 +4,7 @@ import homeRouter from "../routes/homeRouter";
 import loginRouter from "../routes/loginRouter";
 import signupRouter from "../routes/signupRouter";
 import NotFound from "../pages/NotFound";
+import PageNotFoundHeader from "../components/Header/PageNotFoundHeader";
 
 Vue.use(VueRouter);
 
@@ -13,8 +14,11 @@ const routes = [
   ...signupRouter,
   {
     path: "/*",
-    component: NotFound,
-  },
+    components: {
+      default: NotFound,
+      header: PageNotFoundHeader
+    }
+  }
 ];
 
 const router = new VueRouter({

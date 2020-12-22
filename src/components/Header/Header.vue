@@ -1,7 +1,7 @@
 <template>
     <div class="flex space-between align-center">
         <div class="header-title">
-          Application
+          <img class="w-50" :src="require('@/assets/img/main-loader.svg')" />
         </div>
         <div class="flex align-center">
           <div class="p-10">

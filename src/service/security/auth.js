@@ -1,4 +1,3 @@
-import { boolean } from 'yup';
 import dispatchApi from '../../api/dispatchApi';
 
 const Auth = {
@@ -13,9 +12,8 @@ const Auth = {
     },
     checkConnectionStatus: async(callback = null) => {
         if(window.localStorage.getItem("auth_token")){
-            let isUserConnected = await dispatchApi("auth", "checkIfUserConnected"); // variables a changer (isUserConnected) selon api
-            isUserConnected = true; // a enlever
-            window.localStorage.setItem("isLogged", isUserConnected);
+            let isConnected = await dispatchApi("auth", "checkIfUserConnected"); // variables a changer (isUserConnected) selon api
+            window.localStorage.setItem("isLogged", isConnected);
             if(callback !== null){
                 callback();
             }

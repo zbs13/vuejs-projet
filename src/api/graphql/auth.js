@@ -23,6 +23,7 @@ export const auth = {
                 password: password
               },
             'Connexion en cours...',
+            false,
             function(data){
                 store.dispatch("addPopup", {
                     type: "success",
@@ -58,6 +59,7 @@ export const auth = {
                 password: password
               },
             'Inscription en cours...',
+            false,
             function() {
                 store.dispatch("addPopup", {
                     type: "success",
@@ -69,12 +71,21 @@ export const auth = {
     },
     checkIfUserConnected: function() {
         return reqGraphQL(
-            gql``,
-            null,
+            gql`mutation($token: String!){
+                verifToken(
+                  token: $token
+                ),
+                {
+                  isConnected
+                }
+            }`,
+            {
+                token: window.localStorage.getItem("auth_token")
+            },
             null,
             true,
             function(data){
-                return data;
+                return data.verifToken.isConnected || false;
             }
         );
     }

@@ -2,7 +2,7 @@ import store from "../store/app";
 import { GraphQLClient } from 'graphql-request';
 import provider from '../utils/provider';
 
-export function post(endpoint, data = null, waitMessage = null, needAuth = false, callback = null){
+export async function post(endpoint, data = null, waitMessage = null, needAuth = false, callback = null){
     let headers = new Headers();
     needAuth ? headers = new Headers({
         'authorization': window.localStorage.getItem("auth_token")
@@ -15,7 +15,7 @@ export function post(endpoint, data = null, waitMessage = null, needAuth = false
     }
     let waitPopupId;
     if(waitMessage !== null){
-        let popupId = store.dispatch("addPopup", {
+        let popupId = await store.dispatch("addPopup", {
             type: "wait",
             message: waitMessage
         });
@@ -30,7 +30,7 @@ export function post(endpoint, data = null, waitMessage = null, needAuth = false
     .then(data => {
         store.dispatch("removePopup", waitPopupId);
         if(callback !== null)
-            callback(data);
+            return callback(data);
     }).catch(function(){
         store.dispatch("removePopup", waitPopupId);
         store.dispatch("addPopup", {
@@ -52,7 +52,7 @@ export function deleteMethod(endpoint, datas = null, waitMessage = null, needAut
     return Get_Patch_Delete_Requests(endpoint, datas, waitMessage, "DELETE", needAuth, callback);
 }
 
-function Get_Patch_Delete_Requests(endpoint, datas, waitMessage, method, needAuth, callback){
+async function Get_Patch_Delete_Requests(endpoint, datas, waitMessage, method, needAuth, callback){
     let headers = new Headers();
     needAuth ? headers = new Headers({
         'authorization': window.localStorage.getItem("auth_token")
@@ -63,7 +63,7 @@ function Get_Patch_Delete_Requests(endpoint, datas, waitMessage, method, needAut
     }
     let waitPopupId;
     if(waitMessage !== null){
-        let popupId = store.dispatch("addPopup", {
+        let popupId = await store.dispatch("addPopup", {
             type: "wait",
             message: waitMessage
         });
@@ -78,7 +78,7 @@ function Get_Patch_Delete_Requests(endpoint, datas, waitMessage, method, needAut
     .then(data => {
         store.dispatch("removePopup", waitPopupId);
         if(callback !== null)
-            callback(data);
+            return callback(data);
     }).catch(function(){
         store.dispatch("removePopup", waitPopupId);
         store.dispatch("addPopup", {
@@ -88,7 +88,7 @@ function Get_Patch_Delete_Requests(endpoint, datas, waitMessage, method, needAut
     });
 }
 
-export function reqGraphQL(req, vars = null, waitMessage = null, needAuth = false, callback = null){
+export async function reqGraphQL(req, vars = null, waitMessage = null, needAuth = false, callback = null){
     let options = null;
     needAuth ? options = {
         headers: {
@@ -99,7 +99,7 @@ export function reqGraphQL(req, vars = null, waitMessage = null, needAuth = fals
     
     let waitPopupId;
     if(waitMessage !== null){
-        let popupId = store.dispatch("addPopup", {
+        let popupId = await store.dispatch("addPopup", {
             type: "wait",
             message: waitMessage
         });
@@ -110,12 +110,22 @@ export function reqGraphQL(req, vars = null, waitMessage = null, needAuth = fals
         .then(function(data){
             store.dispatch("removePopup", waitPopupId);
             if(callback !== null)
-                callback(data);
-        }).catch(function(){
+                return callback(data);
+        }).catch(error => {
+            let jsonStr = JSON.stringify(error, undefined, 2);
+            let errorCode = JSON.parse(jsonStr).response.errors[0].code || null;
             store.dispatch("removePopup", waitPopupId);
+            let message = "";
+            switch(errorCode){
+                case 3010:
+                    message = "Cet utilisateur existe déja";
+                    break;
+                default:
+                    message = "Oops, une erreur est survenue";
+            }
             store.dispatch("addPopup", {
                 type: "error",
-                message: "Oops, une erreur est survenue"
+                message: message
             });
         });
 }

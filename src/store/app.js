@@ -43,7 +43,7 @@ var store = new Vuex.Store({
         },
         removePopup: function({commit}, payload) {
           this.state.popups.map((popup, index) => {
-            if(popup.id === payload){
+            if(popup.id == payload){
               commit("removePopup", index);
             }
           })

@@ -35,19 +35,22 @@
 export default {
   name: 'Signup',
   components: {
-            Formik,
-            Field,
-            Form,
-            Button,
-            PageTitle
-        },
+      Formik,
+      Field,
+      Form,
+      Button,
+      PageTitle
+  },
   methods: {
-            onSubmit : async function(values){
-                await dispatchApi("auth", "signup", values);
-            },
-            onValidate : async function(values){
-               return await validation(values);
-            }
-        }
+      onSubmit : async function(values){
+          await dispatchApi("auth", "signup", values);
+      },
+      onValidate : async function(values){
+          return await validation(values);
+      }
+  },
+  created(){
+      document.title = "Inscription";
   }
+}
 </script>

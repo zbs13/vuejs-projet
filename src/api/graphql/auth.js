@@ -22,20 +22,17 @@ export const auth = {
                 mail: mail,
                 password: password
               },
-            'en connexion'
-        ).then(function(res){
-            store.dispatch("addPopup", {
-                type: "success",
-                message: "Vous êtes connecté"
-            });
-            window.localStorage.setItem("auth_token", res.login.token);
-            window.location.reload();
-        }).catch(function(){
-            store.dispatch("addPopup", {
-                type: "error",
-                message: "Erreur lors de la connexion"
-            });
-        });
+            'Connexion en cours...',
+            false,
+            function(data){
+                store.dispatch("addPopup", {
+                    type: "success",
+                    message: "Vous êtes connecté"
+                });
+                window.localStorage.setItem("auth_token", data.login.token);
+                window.location.reload();
+            }
+        )
     },
     signup: function({firstname, name, mail, password}) {
         reqGraphQL(
@@ -61,18 +58,35 @@ export const auth = {
                 mail: mail,
                 password: password
               },
-            'en connexion'
-        ).then(function(){
-            store.dispatch("addPopup", {
-                type: "success",
-                message: "Vous êtes inscrit"
-            });
-            window.location = "/login";
-        }).catch(function(){
-            store.dispatch("addPopup", {
-                type: "error",
-                message: "Erreur lors de l'inscription"
-            });
-        });
+            'Inscription en cours...',
+            false,
+            function() {
+                store.dispatch("addPopup", {
+                    type: "success",
+                    message: "Vous êtes inscrit"
+                });
+                window.location = "/login";
+            }
+        )
+    },
+    checkIfUserConnected: function() {
+        return reqGraphQL(
+            gql`mutation($token: String!){
+                verifToken(
+                  token: $token
+                ),
+                {
+                  isConnected
+                }
+            }`,
+            {
+                token: window.localStorage.getItem("auth_token")
+            },
+            null,
+            true,
+            function(data){
+                return data.verifToken.isConnected || false;
+            }
+        );
     }
 }

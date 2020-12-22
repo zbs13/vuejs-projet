@@ -8,9 +8,9 @@ var store = new Vuex.Store({
       popups: []
     },
     getters: {
-        getPopups(state) {
-          return state.popups;
-        },
+      getPopups(state) {
+        return state.popups;
+      }
     },
     mutations: {
       addPopup(state, payload) {
@@ -18,7 +18,7 @@ var store = new Vuex.Store({
       },
       removePopup(state, payload) {
         state.popups.splice(payload, 1);
-      },
+      }
     },
     actions: {
         addPopup: function({commit}, {type, message}) {
@@ -28,17 +28,22 @@ var store = new Vuex.Store({
               type: type,
               message: message
             })
-            new Promise(function(resolve) {
-              setTimeout(function(){
-                resolve("removePopup");
-              }, 5000);
-            }).then(function(removePopupFunc){
-              store.dispatch(removePopupFunc, id)
-            });
+
+            if(type !== "wait"){
+              new Promise(function(resolve) {
+                setTimeout(function(){
+                  resolve("removePopup");
+                }, 5000);
+              }).then(function(removePopupFunc){
+                store.dispatch(removePopupFunc, id)
+              });
+            }else{
+              return id;
+            }
         },
         removePopup: function({commit}, payload) {
           this.state.popups.map((popup, index) => {
-            if(popup.id === payload){
+            if(popup.id == payload){
               commit("removePopup", index);
             }
           })

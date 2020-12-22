@@ -1,7 +1,7 @@
 import { auth as GraphQlAuth } from "./graphql/auth";
 import { auth as ApiPlateformAuth } from "./apiPlateform/auth";
 
-export default async function dispatchApi(type, endpoint, values){
+export default async function dispatchApi(type, endpoint, values = null){
     if(window.localStorage.getItem("apiSelected") && window.localStorage.getItem("apiSelected") === "graphql"){
         switch(type){
             case "auth":

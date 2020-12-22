@@ -22,6 +22,23 @@ const router = new VueRouter({
   routes,
 });
 
+export function manageAccess(needLogged){
+  let isLogged = (window.localStorage.getItem("isLogged") === "true");
+  if((needLogged && isLogged) || (!needLogged && !isLogged)){
+    return;
+  }
+
+  if(needLogged && !isLogged){
+    router.push("/login")
+    return;
+  }
+
+  if(!needLogged && isLogged){
+    router.push("/")
+    return;
+  }
+}
+
 // router.beforeEach((to, from, next) => {
 //   const auth = {
 //     isLoggued: false,

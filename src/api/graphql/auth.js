@@ -12,6 +12,7 @@ export const auth = {
                 ),{
                     token,
                     user{
+                        id,
                         firstname,
                         lastname,
                         email
@@ -30,6 +31,7 @@ export const auth = {
                     message: "Vous êtes connecté"
                 });
                 window.localStorage.setItem("auth_token", data.login.token);
+                window.localStorage.setItem("user_id", data.login.user.id);
                 window.location.reload();
             }
         )

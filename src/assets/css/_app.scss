@@ -16,6 +16,7 @@ body{
 main {
     margin: auto;
     width: $widthApp;
+    padding-top: 100px;
 }
 
 .flex{
@@ -53,4 +54,8 @@ main {
 
 .w-50{
     width: 50px;
+}
+
+.w-100p{
+    width: 100%;
 }

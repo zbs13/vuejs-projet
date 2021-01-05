@@ -1,6 +1,6 @@
 import {reqGraphQL} from '../request';
 import { gql } from 'graphql-request';
-//import store from "../../store/app";
+import store from "../../store/app";
 
 export const group = {
     getUserGroups: function() {
@@ -30,5 +30,37 @@ export const group = {
                 return res.user.groups;
             }
         )
+    },
+    createGroup: function({name, users}) {
+        reqGraphQL(
+            gql`mutation($name: String!, $users: [UserWhereUniqueInput!]){
+                createGroup(
+                  data: {
+                    name: $name,
+                    users: {
+                      connect: $users
+                    }
+                  }
+                ),
+                {
+                  id
+                }
+              }`, 
+              {
+                
+                name: name,
+                users: users
+              },
+            'Création du groupe en cours...',
+            true,
+            function() {
+                store.dispatch("addPopup", {
+                    type: "success",
+                    message: "Votre groupe est créer"
+                });
+                window.location = "/groups";
+            }
+        )
     }
+    
 }

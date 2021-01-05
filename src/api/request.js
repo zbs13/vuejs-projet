@@ -92,7 +92,7 @@ export async function reqGraphQL(req, vars = null, waitMessage = null, needAuth 
     let options = null;
     needAuth ? options = {
         headers: {
-            authorization: 'Bearer ' + window.localStorage.getItem("auth_token"),
+            authorization: window.localStorage.getItem("auth_token"),
         },
     } : null;
     const graphQLClient = new GraphQLClient(provider.url.GRAPHQL, options)

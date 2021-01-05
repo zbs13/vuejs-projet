@@ -5,6 +5,7 @@ import loginRouter from "../routes/loginRouter";
 import signupRouter from "../routes/signupRouter";
 import NotFound from "../pages/NotFound";
 import PageNotFoundHeader from "../components/Header/PageNotFoundHeader";
+import createGroupRouter from "../routes/createGroupRouter";
 
 Vue.use(VueRouter);
 
@@ -12,6 +13,7 @@ const routes = [
   ...homeRouter,
   ...loginRouter,
   ...signupRouter,
+  ...createGroupRouter,
   {
     path: "/*",
     components: {

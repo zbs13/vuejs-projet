@@ -72,6 +72,10 @@ main {
   width: 100%;
 }
 
+.relative {
+  position: relative;
+}
+
 header {
   width: 100%;
   background-color: #FFF;
@@ -223,5 +227,24 @@ header {
   background-color: #5B8C4B;
   border-radius: 5px;
   color: #FFF;
+}
+
+.input {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 2px solid #DADADA;
+  border-radius: 5px;
+}
+
+.show-res-users {
+  border: 2px solid #DADADA;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.margin-button-search {
+  margin: 5px;
+  padding: 5px;
 }
 /*# sourceMappingURL=index.css.map */

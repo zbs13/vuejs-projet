@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="cta-add-group">
-            <router-link to="/groups" class="link add-group-link">Créer un groupe</router-link>
+            <router-link to="/create-group" class="link add-group-link">Créer un groupe</router-link>
         </div>
     </div>
 </template>

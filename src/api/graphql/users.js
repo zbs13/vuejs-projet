@@ -1,9 +1,10 @@
 import {reqGraphQL} from '../request';
-import { gql } from 'graphql-request';
+import gql from 'graphql-tag';
 
 export const users = {
     searchUsers: function(value) {
         return reqGraphQL(
+            'query',
             gql`query($value: String){
                 users(
                     where: {

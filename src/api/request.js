@@ -1,5 +1,7 @@
 import store from "../store/app";
-import { GraphQLClient } from 'graphql-request';
+import {ApolloClient} from 'apollo-client';
+import {HttpLink} from 'apollo-link-http';
+import {InMemoryCache} from 'apollo-cache-inmemory';
 import provider from '../utils/provider';
 
 export async function post(endpoint, data = null, waitMessage = null, needAuth = false, callback = null){
@@ -88,14 +90,21 @@ async function Get_Patch_Delete_Requests(endpoint, datas, waitMessage, method, n
     });
 }
 
-export async function reqGraphQL(req, vars = null, waitMessage = null, needAuth = false, callback = null){
+export async function reqGraphQL(type, req, vars = null, waitMessage = null, needAuth = false, callback = null){
     let options = null;
     needAuth ? options = {
         headers: {
             authorization: window.localStorage.getItem("auth_token"),
         },
     } : null;
-    const graphQLClient = new GraphQLClient(provider.url.GRAPHQL, options)
+
+    const graphQLClient = new ApolloClient({
+        link: new HttpLink({
+            uri: provider.url.GRAPHQL,
+            options
+        }),
+        cache: new InMemoryCache(),
+      });
     
     let waitPopupId;
     if(waitMessage !== null){
@@ -106,12 +115,29 @@ export async function reqGraphQL(req, vars = null, waitMessage = null, needAuth 
         waitPopupId = popupId;
     }
 
-    return graphQLClient.request(req, vars)
-        .then(function(data){
+    let queryDef;
+    switch(type){
+        case 'query':
+            queryDef = graphQLClient.query({
+                query: req,
+                variables: vars
+            })
+            break;
+        case 'mutation':
+            queryDef = graphQLClient.mutate({
+                mutation: req,
+                variables: vars
+            })
+            break;
+    }
+
+    return queryDef
+        .then(function(res){
             store.dispatch("removePopup", waitPopupId);
             if(callback !== null)
-                return callback(data);
+                return callback(res.data);
         }).catch(error => {
+            console.log(error);
             let jsonStr = JSON.stringify(error, undefined, 2);
             let errorCode = JSON.parse(jsonStr).response.errors[0].code || null;
             store.dispatch("removePopup", waitPopupId);

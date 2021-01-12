@@ -1,10 +1,11 @@
 import {reqGraphQL} from '../request';
-import { gql } from 'graphql-request';
+import gql from 'graphql-tag';
 import store from "../../store/app";
 
 export const group = {
     getUserGroups: function() {
         return reqGraphQL(
+            'query',
             gql`query($id: ID!){
                 user(
                     where: {
@@ -33,6 +34,7 @@ export const group = {
     },
     createGroup: function({name, users}) {
         reqGraphQL(
+            'mutation',
             gql`mutation($name: String!, $users: [UserWhereUniqueInput!]){
                 createGroup(
                   data: {

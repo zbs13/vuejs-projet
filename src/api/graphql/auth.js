@@ -1,10 +1,11 @@
 import {reqGraphQL} from '../request';
-import { gql } from 'graphql-request';
+import gql from 'graphql-tag';
 import store from "../../store/app";
 
 export const auth = {
     connect: function({mail, password}) {
         reqGraphQL(
+          'mutation',
             gql`mutation($mail: String!, $password: String!){
                 login(
                     email: $mail,
@@ -38,6 +39,7 @@ export const auth = {
     },
     signup: function({firstname, name, mail, password}) {
         reqGraphQL(
+          'mutation',
             gql`mutation($firstname: String!, $name: String!, $mail: String!, $password: String!){
                 signup(
                   firstname: $firstname,
@@ -73,6 +75,7 @@ export const auth = {
     },
     checkIfUserConnected: function() {
         return reqGraphQL(
+          'mutation',
             gql`mutation($token: String!){
                 verifToken(
                   token: $token

@@ -1,9 +1,9 @@
 <template>
-    <div class="message-block">
-        <div class="message-list">
+    <div id="message-block" class="message-block">
+        <div id="message-list" class="message-list">
             <div v-if="messageList.length !== 0">
-                <div v-for="message in messageList" :key="message.id">
-                    <MessageCard :id="message.id" :create_at="message.create_at" :text="message.text" :sentBy="message.sentBy" />
+                <div class="content-message-card" v-for="message in messageList" :key="message.id">
+                        <MessageCard :id="message.id" :create_at="message.create_at" :text="message.text" :sentBy="message.sentBy"/>
                 </div>
             </div>
             <div class="no-message" v-else>
@@ -26,6 +26,7 @@ export default {
   components: {
       MessageCard
   },
-  props: ["messageList"]
+  props: ["messageList","window"]
+
 }
 </script>

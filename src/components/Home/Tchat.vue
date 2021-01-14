@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <div class="tchat">
         <MessageList :messageList="groupMessages"/>
         <Formik :initialValues="{
                                     text: ''
-                                    }" :onValidate="onValidate" @onSubmit="onSubmit" class="form form-login flex column">
-            <Form class="form form-login flex column">
+                                    }" :onValidate="onValidate" @onSubmit="onSubmit" class="form flex column">
+            <Form class="form flex column">
                 <Field class="field" type="text" name="text" placeholder="text" required="required" />
                 <Button class="cta submit" type="submit" value="Envoyer" />
             </Form>
@@ -51,6 +51,11 @@ export default {
 
     let messages = await dispatchApi("message", "getGroupMessage", groupId);
     this.$data.groupMessages = messages;
+
+    
+    let messageBlock = document.getElementById("message-block");
+    messageBlock.scrollTop = messageBlock.scrollHeight;
+    console.log(messageBlock.scrollHeight);
     
     let self = this;
     
@@ -59,6 +64,8 @@ export default {
       async next (data) {
           let messages = await dispatchApi("message", "getGroupMessage", groupId);
           self.$data.groupMessages = messages;
+
+          messageBlock.scrollTop = messageBlock.scrollHeight;
         },
         error (error) {
           console.error(error)

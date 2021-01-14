@@ -187,7 +187,7 @@ header {
 }
 
 .group-block {
-  width: 300px;
+  width: 35%;
   max-width: 100%;
   background-color: #FFF;
   overflow: auto;
@@ -227,6 +227,28 @@ header {
   background-color: #5B8C4B;
   border-radius: 5px;
   color: #FFF;
+}
+
+.tchat {
+  width: 65%;
+  height: calc(100vh - 96px - 57px - 14px);
+}
+
+.tchat .message-block {
+  overflow: auto;
+  height: calc(100vh - 96px - 57px - 14px - 116px);
+}
+
+.tchat .message-block .message-list .content-message-card {
+  height: 40px;
+}
+
+.tchat .message-block .message-list .content-message-card .sent {
+  float: right;
+}
+
+.tchat .message-block .message-list .content-message-card .received {
+  width: 100%;
 }
 
 .input {

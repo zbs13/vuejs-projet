@@ -4,6 +4,11 @@ import {HttpLink} from 'apollo-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import provider from '../utils/provider';
 
+import { split } from 'apollo-link'
+import { WebSocketLink } from 'apollo-link-ws'
+import { getMainDefinition } from 'apollo-utilities'
+
+
 export async function post(endpoint, data = null, waitMessage = null, needAuth = false, callback = null){
     let headers = new Headers();
     needAuth ? headers = new Headers({
@@ -94,14 +99,16 @@ export async function reqGraphQL(type, req, vars = null, waitMessage = null, nee
     let options = null;
     needAuth ? options = {
         headers: {
-            authorization: window.localStorage.getItem("auth_token"),
+            Authorization: window.localStorage.getItem("auth_token")
         },
     } : null;
-
+    
     const graphQLClient = new ApolloClient({
         link: new HttpLink({
             uri: provider.url.GRAPHQL,
-            options
+            headers: {
+                Authorization: window.localStorage.getItem("auth_token")
+            }
         }),
         cache: new InMemoryCache(),
       });
@@ -114,6 +121,8 @@ export async function reqGraphQL(type, req, vars = null, waitMessage = null, nee
         });
         waitPopupId = popupId;
     }
+
+    
 
     let queryDef;
     switch(type){
@@ -129,7 +138,52 @@ export async function reqGraphQL(type, req, vars = null, waitMessage = null, nee
                 variables: vars
             })
             break;
+            
     }
+
+    if(type == 'subscription'){
+        const httpLink = new HttpLink({
+            // You should use an absolute URL here
+            uri: provider.url.GRAPHQL,
+        })
+
+        // Create the subscription websocket link
+        const wsLink = new WebSocketLink({
+            uri: provider.url.WEBSOCKET_GRAPHQL,
+            options: {
+            reconnect: true,
+            },
+        })
+        
+        // using the ability to split links, you can send data to each link
+        // depending on what kind of operation is being sent
+        const link = split(
+            // split based on operation type
+            ({ query }) => {
+            const definition = getMainDefinition(query)
+            return definition.kind === 'OperationDefinition' &&
+                definition.operation === 'subscription'
+            },
+            wsLink,
+            httpLink
+        )
+        
+        // Create the apollo client
+        const graphQLClient = new ApolloClient({
+            link,
+            cache: new InMemoryCache(),
+            connectToDevTools: true,
+        })
+
+
+        return queryDef = graphQLClient.subscribe({
+            query: req,
+            variables: vars
+        })
+
+    }
+
+   
 
     return queryDef
         .then(function(res){

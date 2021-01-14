@@ -12,6 +12,9 @@ const validationSchema = yup.object().shape({
   name: yup.string()
                 .min(3, "Le nom doit contenir au moins 3 charactères"),
 
+  text: yup.string()
+                .min(1, "Le message doit contenir au moins 1 charactère"),
+
   confirmPwd: yup.string()
                 .oneOf([yup.ref('password'), null], "Le mot de passe n'est pas le même")
 });

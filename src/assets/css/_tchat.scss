@@ -1,0 +1,25 @@
+.tchat{
+    width: 65%;
+    height: calc(100vh - 96px - 57px - 14px);
+
+    .message-block{
+        overflow: auto;
+        height: calc(100vh - 96px - 57px - 14px - 116px);
+
+        .message-list{
+            .content-message-card{
+                height: 40px;
+
+                .sent{
+                    float: right;
+                }
+    
+                .received{
+                    width: 100%;
+                }
+            }
+
+            
+        }
+    }
+}

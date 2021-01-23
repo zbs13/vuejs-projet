@@ -32,6 +32,36 @@ export const group = {
             }
         )
     },
+    getGroup: function(groupId) {
+      return reqGraphQL(
+          'query',
+          gql`query($id: ID!){
+              group(
+                  where: {
+                      id: $id
+                  }
+              ),{
+                  
+                  id,
+                  name,
+                  owner {
+                      id,
+                      firstname,
+                      lastname
+                  }
+                  
+              }
+            }`, 
+            {
+              id: groupId,
+            },
+          'Récupération des groupes en cours...',
+          true,
+          function(res){
+              return res.group;
+          }
+      )
+  },
     createGroup: function({name, users}) {
         reqGraphQL(
             'mutation',

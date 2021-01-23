@@ -3,7 +3,7 @@
         <div id="message-list" class="message-list">
             <div v-if="messageList.length !== 0">
                 <div class="content-message-card" v-for="message in messageList" :key="message.id">
-                        <MessageCard :id="message.id" :create_at="message.create_at" :text="message.text" :sentBy="message.sentBy"/>
+                        <MessageCard :id="message.id" :create_at="message.create_at" :text="message.text" :sentBy="message.sentBy" :roles="roles"/>
                 </div>
             </div>
             <div class="no-message" v-else>
@@ -26,7 +26,7 @@ export default {
   components: {
       MessageCard
   },
-  props: ["messageList","window"]
+  props: ["messageList","window","roles"]
 
 }
 </script>

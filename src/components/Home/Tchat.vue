@@ -1,6 +1,6 @@
 <template>
     <div class="tchat">
-        <MessageList :messageList="groupMessages"/>
+        <MessageList :messageList="groupMessages" :roles="userRoles"/>
         <Formik :initialValues="{
                                     text: ''
                                     }" :onValidate="onValidate" @onSubmit="onSubmit" class="form flex column">
@@ -22,7 +22,8 @@ export default {
   name: 'Tchat',
   data() {
     return {
-      groupMessages: []
+      groupMessages: [],
+      userRoles: []
     }
   },
   components: {
@@ -48,6 +49,16 @@ export default {
   
   async mounted() {
     let groupId = this.$route.params.groupId
+
+    let group = await dispatchApi("group", "getGroup", groupId);
+    
+    if(group.owner.id == window.localStorage.getItem("user_id")){
+      this.$data.userRoles = ["owner"];
+    }else{
+      let roles = await dispatchApi("role", "getUserRolesGroup", groupId);
+      this.$data.userRoles = roles;
+    }
+
 
     let messages = await dispatchApi("message", "getGroupMessage", groupId);
     this.$data.groupMessages = messages;

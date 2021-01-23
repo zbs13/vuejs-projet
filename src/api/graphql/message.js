@@ -98,6 +98,32 @@ export const message = {
                 token: window.localStorage.getItem("auth_token"),
               }
         )
-    }
+    },
+    deleteMessage: function(messageId) {
+        reqGraphQL(
+            'mutation',
+            gql`mutation($messageId: ID!){
+                deleteMessage(
+                    where:{
+                        id: $messageId
+                    }
+                ),
+                {
+                    id
+                }
+              }`, 
+              {
+                messageId: messageId
+              },
+            'Suppression du message en cours...',
+            true,
+            function() {
+                store.dispatch("addPopup", {
+                    type: "success",
+                    message: "Votre message a été supprimer"
+                });
+            }
+        )
+    },
     
 }

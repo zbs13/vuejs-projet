@@ -240,7 +240,7 @@ header {
 }
 
 .tchat .message-block .message-list .content-message-card {
-  height: 40px;
+  height: 60px;
 }
 
 .tchat .message-block .message-list .content-message-card .sent {

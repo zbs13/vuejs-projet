@@ -1,12 +1,12 @@
-import {reqGraphQL} from '../request';
+import { reqGraphQL } from '../request';
 import gql from 'graphql-tag';
 import store from "../../store/app";
 
 export const group = {
-    getUserGroups: function() {
-        return reqGraphQL(
-            'query',
-            gql`query($id: ID!){
+  getUserGroups: function () {
+    return reqGraphQL(
+      'query',
+      gql`query($id: ID!){
                 user(
                     where: {
                         id: $id
@@ -21,21 +21,21 @@ export const group = {
                         }
                     }
                 }
-              }`, 
-              {
-                id: window.localStorage.getItem("user_id"),
-              },
-            'Récupération des groupes en cours...',
-            true,
-            function(res){
-                return res.user.groups;
-            }
-        )
-    },
-    getGroup: function(groupId) {
-      return reqGraphQL(
-          'query',
-          gql`query($id: ID!){
+              }`,
+      {
+        id: window.localStorage.getItem("user_id"),
+      },
+      'Récupération des groupes en cours...',
+      true,
+      function (res) {
+        return res.user.groups;
+      }
+    )
+  },
+  getGroup: function (groupId) {
+    return reqGraphQL(
+      'query',
+      gql`query($id: ID!){
               group(
                   where: {
                       id: $id
@@ -48,24 +48,29 @@ export const group = {
                       id,
                       firstname,
                       lastname
+                  },
+                  users {
+                    id,
+                    firstname,
+                    lastname
                   }
                   
               }
-            }`, 
-            {
-              id: groupId,
-            },
-          'Récupération des groupes en cours...',
-          true,
-          function(res){
-              return res.group;
-          }
-      )
+            }`,
+      {
+        id: groupId,
+      },
+      'Récupération des groupes en cours...',
+      true,
+      function (res) {
+        return res.group;
+      }
+    )
   },
-    createGroup: function({name, users}) {
-        reqGraphQL(
-            'mutation',
-            gql`mutation($name: String!, $users: [UserWhereUniqueInput!]){
+  createGroup: function ({ name, users }) {
+    reqGraphQL(
+      'mutation',
+      gql`mutation($name: String!, $users: [UserWhereUniqueInput!]){
                 createGroup(
                   data: {
                     name: $name,
@@ -77,22 +82,22 @@ export const group = {
                 {
                   id
                 }
-              }`, 
-              {
-                
-                name: name,
-                users: users
-              },
-            'Création du groupe en cours...',
-            true,
-            function() {
-                store.dispatch("addPopup", {
-                    type: "success",
-                    message: "Votre groupe est créer"
-                });
-                window.location = "/groups";
-            }
-        )
-    }
-    
+              }`,
+      {
+
+        name: name,
+        users: users
+      },
+      'Création du groupe en cours...',
+      true,
+      function () {
+        store.dispatch("addPopup", {
+          type: "success",
+          message: "Votre groupe est créer"
+        });
+        window.location = "/groups";
+      }
+    )
+  }
+
 }

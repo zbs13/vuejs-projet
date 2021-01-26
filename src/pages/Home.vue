@@ -1,35 +1,35 @@
 <template>
-    <div>
-      <PageTitle title="Mes groupes"/>
-      <div class="w-100p flex">
-        <GroupList :groupList="userGroups"/>
-        <router-view />
-      </div>
+  <div>
+    <PageTitle title="Mes groupes" />
+    <div class="w-100p flex">
+      <GroupList :groupList="userGroups" />
+      <router-view :key="$route.path" />
     </div>
+  </div>
 </template>
 
 <script>
-import dispatchApi from '../api/dispatchApi'; 
-import GroupList from '../components/Home/GroupList';
-import PageTitle from '../components/PageTitle';
+import dispatchApi from "../api/dispatchApi";
+import GroupList from "../components/Home/GroupList";
+import PageTitle from "../components/PageTitle";
 
 export default {
-  name: 'Home',
+  name: "Home",
   data() {
     return {
-      userGroups: []
-    }
+      userGroups: [],
+    };
   },
   components: {
     GroupList,
-    PageTitle
+    PageTitle,
   },
-  created(){
-      document.title = "Accueil";
+  created() {
+    document.title = "Accueil";
   },
   async mounted() {
     let groups = await dispatchApi("group", "getUserGroups");
     this.$data.userGroups = groups;
-  }
-}
+  },
+};
 </script>

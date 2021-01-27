@@ -62,9 +62,12 @@ export default {
                     id: this.$data.users[i].id
                 })
             }
+            users.push({
+                id: window.localStorage.getItem("user_id")
+            })
             values.users = users;
             values.owner = owner;
-            console.log(values)
+
             await dispatchApi("group", "createGroup", values);
         },
         onValidate: async function(values) {

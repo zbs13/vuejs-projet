@@ -5,7 +5,7 @@
     </div>
     <div class="message-text">
       {{ text }}
-      <div v-if="hasRightToDelete">
+      <div>
         <button @click="deleteMessage">Delete</button>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.$data.hasRightToRole == true">
+  <div v-if="this.roles.length !== 0 && this.roles[0] == 'owner'">
     <PageTitle title="Création de Role" />
 
     <Formik
@@ -134,6 +134,7 @@ export default {
   async mounted() {
     this.$data.hasRightToRole = false;
     if (this.roles.length !== 0 && this.roles[0] == "owner") {
+      console.log("ok");
       this.$data.hasRightToRole = true;
     } else if (this.roles.length !== 0) {
       this.roles.forEach((role) => {

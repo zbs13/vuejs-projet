@@ -7,10 +7,11 @@ import { message as ApiPlateformMessage } from "./apiPlateform/message";
 import { role as GraphQlRole } from "./graphql/role";
 import { role as ApiPlateformRole } from "./apiPlateform/role";
 import { users as GraphQlUsers } from "./graphql/users";
+import { right as GraphQlRight } from "./graphql/right";
 
-export default async function dispatchApi(type, endpoint, values = null){
-    if(window.localStorage.getItem("apiSelected") && window.localStorage.getItem("apiSelected") === "graphql"){
-        switch(type){
+export default async function dispatchApi(type, endpoint, values = null) {
+    if (window.localStorage.getItem("apiSelected") && window.localStorage.getItem("apiSelected") === "graphql") {
+        switch (type) {
             case "auth":
                 return GraphQlAuth[endpoint](values);
             case "group":
@@ -21,9 +22,11 @@ export default async function dispatchApi(type, endpoint, values = null){
                 return GraphQlRole[endpoint](values);
             case "users":
                 return GraphQlUsers[endpoint](values);
+            case "right":
+                return GraphQlRight[endpoint](values);
         }
-    }else{
-        switch(type){
+    } else {
+        switch (type) {
             case "auth":
                 return ApiPlateformAuth[endpoint](values);
             case "group":

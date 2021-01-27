@@ -1,16 +1,5 @@
 <template>
-  <div>
-    <Button
-      class="cta submit"
-      type="submit"
-      value="Ajouter un role"
-      :click="
-        this.$data.displayCreateRole
-          ? (this.$data.displayCreateRole = false)
-          : (this.$data.displayCreateRole = true)
-      "
-    />
-
+  <div v-if="this.$data.hasRightToRole == true">
     <PageTitle title="Création de Role" />
 
     <Formik
@@ -21,12 +10,13 @@
       @onSubmit="onSubmit"
       class="form form-login flex column"
     >
-      <SearchUser
+      <SearchUserInGroup
         @onAddUser="addUserFromSearchUsers"
         :usersInGroup="this.$data.users"
+        :groupId="this.$props.groupId"
       />
-      <select name="selectrole">
-        <option v-for="right in rights" :key="right.id">
+      <select @change="selectedRight($event)" name="selectrole">
+        <option v-for="right in rights" :key="right.id" :value="right.id">
           {{ right.name }}
         </option>
       </select>
@@ -38,18 +28,13 @@
           placeholder="Nom"
           required="required"
         />
-        <Button
-          v-if="hasRightToRole"
-          class="cta submit"
-          type="submit"
-          value="Créer le Role"
-        />
+        <Button class="cta submit" type="submit" value="Créer le Role" />
       </Form>
       <div class="result-search-users">
         <div v-if="this.$data.users.length !== 0" class="font-s-20 font-b p-10">
           Liste des utilisateurs :
         </div>
-        <div v-for="user in this.$data.users" :key="user.id">
+        <div v-for="user of this.$data.users" :key="user.id">
           <div class="flex p-10">
             <div class="show-res-users p-10">
               {{ user.lastname }} {{ user.firstname }}
@@ -69,7 +54,7 @@ import Formik, { Field, Form, Button } from "../../../service/Formik";
 import PageTitle from "../../../components/PageTitle";
 import validation from "../../../utils/validation";
 import dispatchApi from "../../../api/dispatchApi";
-import SearchUser from "../../../components/SearchUsers";
+import SearchUserInGroup from "../../SearchUserInGroup.vue";
 
 // owner récuper dans les localstorage
 
@@ -81,7 +66,7 @@ export default {
     Form,
     Button,
     PageTitle,
-    SearchUser,
+    SearchUserInGroup,
   },
   props: ["roles", "groupId", "group"],
   data() {
@@ -90,6 +75,8 @@ export default {
       hasRightToRole: Boolean,
       displayCreateRole: false,
       rights: [],
+      groupUsers: [],
+      selectedRights: [],
     };
   },
   methods: {
@@ -105,10 +92,27 @@ export default {
       }
       values.users = users;
       values.owner = owner;
-      values.group = this.$data.groupId;
+      values.group = this.$props.groupId;
+      values.rights = this.$data.selectedRights;
       console.log(values);
-      await dispatchApi("roles", "createRole", values);
+      await dispatchApi("role", "createRole", values);
     },
+
+    selectedRight: function (event) {
+      console.log(event.target.value);
+
+      let isInArray = false;
+      for (let RightInArray of this.$data.selectedRights) {
+        if (RightInArray.id == event.target.value) {
+          isInArray = true;
+        }
+      }
+      if (!isInArray) {
+        this.$data.selectedRights.push({ id: event.target.value });
+      }
+      console.log(this.$data.selectedRights);
+    },
+
     onValidate: async function (values) {
       return await validation(values);
     },
@@ -133,15 +137,19 @@ export default {
       this.$data.hasRightToRole = true;
     } else if (this.roles.length !== 0) {
       this.roles.forEach((role) => {
-        console.log(role.rights);
         role.rights.forEach((right) => {
           if (right.id == "3") {
             this.$data.hasRightToRole = true;
+            return;
           }
         });
+        return;
       });
     }
-    // this.$data.rights = await dispatchApi("right", "getRights");
+    // let group = await dispatchApi("group", "getGroup", this.$props.groupId);
+
+    this.$data.rights = await dispatchApi("right", "getRights");
+    console.log(this.$data.rights);
   },
 };
 </script>

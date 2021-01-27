@@ -28,11 +28,12 @@
 import dispatchApi from "../api/dispatchApi";
 
 export default {
-  name: "SearchUser",
+  name: "SearchUserInGroup",
   props: {
     usersInGroup: {
       type: Array,
     },
+    groupId: String,
   },
   data() {
     return {
@@ -43,11 +44,10 @@ export default {
   },
   methods: {
     searchUsers: async function (event) {
-      let resSearchUser = await dispatchApi(
-        "users",
-        "searchUsers",
-        event.target.value
-      );
+      let resSearchUser = await dispatchApi("users", "searchUsersByGroup", {
+        value: event.target.value,
+        groupId: this.$props.groupId,
+      });
       console.log(this.$props.usersInGroup);
       // del user existant
       let userToAdd = [];
@@ -75,7 +75,7 @@ export default {
     },
   },
   created() {
-    document.title = "SearchUser";
+    document.title = "SearchUserInGroup";
   },
 };
 </script>

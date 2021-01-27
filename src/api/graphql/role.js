@@ -40,10 +40,10 @@ export const role = {
       }
     )
   },
-  createRole: function ({ name, groupId, users, rights }) {
+  createRole: function ({ name, group, users, rights }) {
     reqGraphQL(
       'mutation',
-      gql`mutation($name: String!, $groupId: ID!, $users: [UserWhereUniqueInput!], $rights: [RightWhereUniqueInput!] ){
+      gql`mutation($name: String!, $group: ID!, $users: [UserWhereUniqueInput!], $rights: [RightWhereUniqueInput!] ){
             createRole(
               data: {
                 name: $name,
@@ -52,7 +52,7 @@ export const role = {
                 },
                 group:{
                     connect:{
-                        id: $groupId
+                        id: $group
                     }
                 },
                 users:{
@@ -68,7 +68,7 @@ export const role = {
 
         name: name,
         users: users,
-        groupId: groupId,
+        group: group,
         rights: rights
       },
       'Création du role cours...',

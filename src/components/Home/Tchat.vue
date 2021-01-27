@@ -3,7 +3,6 @@
     <Role-assignation
       :roles="userRoles"
       :groupId="this.$route.params.groupId"
-      :group="this.$data.group"
     />
     <MessageList :messageList="groupMessages" :roles="userRoles" />
     <Formik
@@ -41,7 +40,6 @@ export default {
     return {
       groupMessages: [],
       userRoles: [],
-      group: [],
     };
   },
   components: {
@@ -68,7 +66,6 @@ export default {
     let groupId = this.$route.params.groupId;
 
     let group = await dispatchApi("group", "getGroup", groupId);
-    this.$data.group = group;
 
     if (group.owner.id == window.localStorage.getItem("user_id")) {
       this.$data.userRoles = ["owner"];
@@ -76,7 +73,7 @@ export default {
       let roles = await dispatchApi("role", "getUserRolesGroup", groupId);
       this.$data.userRoles = roles;
     }
-    console.log(group);
+
     let messages = await dispatchApi("message", "getGroupMessage", groupId);
     this.$data.groupMessages = messages;
 

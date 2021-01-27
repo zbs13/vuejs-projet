@@ -6,22 +6,19 @@ export const right = {
     getRights: function () {
         return reqGraphQL(
             'query',
-            gql`query(){
-                    rights, 
+            gql`query{
+                    rights
                         {
                             id,
                             name
-                        }  
-                      }
+                        }
                     }`,
             null,
             'Récupération des roles en cours...',
             true,
             function (res) {
-                console.log(res);
                 return res.rights;
             }
         )
     }
-
 }

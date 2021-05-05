@@ -1,7 +1,3 @@
-# Frankenstein'd from the following repos:
-# - https://github.com/rangle/tutorial-frontend-site-terraform
-# - https://github.com/li0nel/terraform-aws-single-page-application
-
 terraform {
   required_providers {
     aws = {
@@ -62,23 +58,4 @@ resource "aws_s3_bucket" "site" {
   ]
 }
 EOF
-}
-
-resource "aws_cloudfront_distribution" "site" {
-  enabled = true
-  is_ipv6_enabled = true
-  default_root_object = "index.html"
-  
-  origin {
-    domain_name = "${aws_s3_bucket.site.bucket_domain_name}"
-    origin_id = "${var.vuejs_bucket}"
-    
-    s3_origin_config {
-      origin_access_identity = "${aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path}"
-    }
-  }
-  
-  viewer_certificate {
-    cloudfront_default_certificate = true
-  }
 }

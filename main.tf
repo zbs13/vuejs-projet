@@ -21,43 +21,43 @@ terraform {
 }
 
 provider "aws" {
-  profile = "terraform"
+  region = "eu-west-1"
 }
 
 
 
 
-resource "aws_s3_bucket" "site" {
-  bucket = "vuejs_bucket"
+# resource "aws_s3_bucket" "site" {
+#   bucket = "vuejs_bucket"
   
-  website {
-    index_document = "index.html"
-    error_document = "index.html"
-  }
+#   website {
+#     index_document = "index.html"
+#     error_document = "index.html"
+#   }
   
-#   policy = <<EOF
-# {
-#   "Id": "site_bucket_policy",
-#   "Version": "2012-10-17",
-#   "Statement": [
-#     {
-#       "Sid": "site_bucket_policy_root",
-#       "Action": ["s3:ListBucket"],
-#       "Effect": "Allow",
-#       "Resource": "arn:aws:s3:::${var.bucket_name}",
-#       "Principal": {"AWS":"${aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn}"}
-#     },
-#     {
-#       "Sid": "site_bucket_policy_all",
-#       "Action": ["s3:GetObject"],
-#       "Effect": "Allow",
-#       "Resource": "arn:aws:s3:::${var.bucket_name}/*",
-#       "Principal": {"AWS":"${aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn}"}
-#     }
-#   ]
+# #   policy = <<EOF
+# # {
+# #   "Id": "site_bucket_policy",
+# #   "Version": "2012-10-17",
+# #   "Statement": [
+# #     {
+# #       "Sid": "site_bucket_policy_root",
+# #       "Action": ["s3:ListBucket"],
+# #       "Effect": "Allow",
+# #       "Resource": "arn:aws:s3:::${var.bucket_name}",
+# #       "Principal": {"AWS":"${aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn}"}
+# #     },
+# #     {
+# #       "Sid": "site_bucket_policy_all",
+# #       "Action": ["s3:GetObject"],
+# #       "Effect": "Allow",
+# #       "Resource": "arn:aws:s3:::${var.bucket_name}/*",
+# #       "Principal": {"AWS":"${aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn}"}
+# #     }
+# #   ]
+# # }
+# # EOF
 # }
-# EOF
-}
 
 # resource "aws_cloudfront_distribution" "site" {
 #   enabled = true

@@ -24,13 +24,11 @@ provider "aws" {
   profile = "terraform"
 }
 
-variable "bucket_name" {
-  description = "where the S3 website bucket should be created"
-}
+
 
 
 resource "aws_s3_bucket" "site" {
-  bucket = "${var.bucket_name}"
+  bucket = "vuejs_bucket"
   
   website {
     index_document = "index.html"

@@ -2,6 +2,28 @@
 # - https://github.com/rangle/tutorial-frontend-site-terraform
 # - https://github.com/li0nel/terraform-aws-single-page-application
 
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "3.26.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.0.1"
+    }
+  }
+  required_version = "~> 0.14"
+
+  backend "remote" {
+    organization = "vuejs"
+
+    workspaces {
+      name = "vuejs-app"
+    }
+  }
+}
+
 provider "aws" {
   profile = "terraform"
 }

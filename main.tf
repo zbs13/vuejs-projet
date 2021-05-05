@@ -10,6 +10,7 @@ variable "bucket_name" {
   description = "where the S3 website bucket should be created"
 }
 
+
 resource "aws_s3_bucket" "site" {
   bucket = "${var.bucket_name}"
   

@@ -24,11 +24,6 @@ provider "aws" {
   region = "eu-west-1"
 }
 
-variable "bucket_name" {
-  description = "where the S3 website bucket should be created"
-}
-
-
 resource "aws_s3_bucket" "site" {
   bucket = "vuejs_bucket"
   
@@ -36,27 +31,4 @@ resource "aws_s3_bucket" "site" {
     index_document = "index.html"
     error_document = "index.html"
   }
-  
-  policy = <<EOF
-{
-  "Id": "site_bucket_policy",
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "site_bucket_policy_root",
-      "Action": ["s3:ListBucket"],
-      "Effect": "Allow",
-      "Resource": "arn:aws:s3:::${var.bucket_name}",
-      "Principal": {"AWS":"${aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn}"}
-    },
-    {
-      "Sid": "site_bucket_policy_all",
-      "Action": ["s3:GetObject"],
-      "Effect": "Allow",
-      "Resource": "arn:aws:s3:::${var.bucket_name}/*",
-      "Principal": {"AWS":"${aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn}"}
-    }
-  ]
-}
-EOF
 }

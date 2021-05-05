@@ -24,11 +24,11 @@ provider "aws" {
   region = "eu-west-1"
 }
 
-resource "aws_s3_bucket" "site" {
-  bucket = "vuejs_bucket"
-  
-  website {
-    index_document = "index.html"
-    error_document = "index.html"
+resource "aws_instance" "web" {
+  ami           = "ami-lfjzkeghej"
+  instance_type = "t3.micro"
+
+  tags = {
+    Name = "HelloWorld"
   }
 }

@@ -20,15 +20,12 @@ terraform {
   }
 }
 
+
 provider "aws" {
-  region = "eu-west-1"
+  region = "us-west-1"
 }
 
 resource "aws_instance" "web" {
   ami           = "ami-005e54dee72cc1d00"
-  instance_type = "t3.micro"
-
-  tags = {
-    Name = "HelloWorld"
-  }
+  instance_type = "t2.micro"
 }
